@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>⚠️ULTIMA CHANCE! NÃO PERCA!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Mantendo seus scripts originais -->
+    <script>
+        window.pixelId = "67e5d32049c66110114aa453";
+        var a = document.createElement("script");
+        a.setAttribute("async", "");
+        a.setAttribute("defer", "");
+        a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel.js");
+        document.head.appendChild(a);
+    </script>
+
+    <script
+      src="https://cdn.utmify.com.br/scripts/utms/latest.js"
+      data-utmify-prevent-xcod-sck
+      data-utmify-prevent-subids
+      async
+      defer
+    ></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        html {
+            font-size: 16px; /* Base para unidades rem */
+        }
+
+        body {
+            background: white;
+            padding: 0.9375rem; /* 15px em rem */
+            min-width: 280px; /* Mínimo suportado */
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 1.25rem auto; /* 20px em rem */
+            border: 3px solid #ff0000;
+            padding: clamp(0.9375rem, 5vw, 1.5625rem); /* Responsivo entre 15-25px */
+            text-align: center;
+            border-radius: 10px;
+            animation: piscarBorda 1s infinite alternate;
+        }
+
+        h1 {
+            color: #ff0000;
+            font-size: clamp(1.5rem, 5vw, 2.5rem); /* Responsivo entre 24-40px */
+            margin-bottom: clamp(0.625rem, 3vw, 0.9375rem); /* 10-15px */
+            text-transform: uppercase;
+            word-wrap: break-word;
+            line-height: 1.2;
+        }
+
+        .destaque {
+            color: white;
+            font-size: clamp(1.25rem, 4vw, 1.8rem); /* Responsivo */
+            font-weight: bold;
+            line-height: 1.2;
+            background: rgb(0, 0, 0);
+            padding: 0.5rem 0.75rem;
+            display: inline-block;
+            border-radius: 5px;
+            margin-bottom: 0.9375rem;
+            max-width: 100%; /* Garante que não ultrapasse a largura */
+            word-wrap: break-word;
+        }
+
+        .texto-urgente {
+            font-size: clamp(1rem, 3vw, 1.4rem);
+            line-height: 1.6;
+            color: #333;
+            margin: 1.25rem 0;
+            word-wrap: break-word;
+        }
+
+        .ultima-chance {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            display: inline-block;
+            margin: 0;
+            padding: 3px 0;
+        }
+
+        /* Área de preços reformulada */
+        .area-preco {
+            background-color: #f9f9f9;
+            border: 2px dashed #ff0000;
+            padding: clamp(0.9375rem, 3vw, 1.25rem);
+            border-radius: 10px;
+            margin: 1.25rem 0;
+            width: 100%;
+        }
+
+        .preco-antigo {
+            font-size: clamp(1.25rem, 4vw, 2rem);
+            color: #666;
+            text-decoration: line-through;
+            display: block;
+            margin-bottom: 0.3125rem;
+        }
+
+        .preco-atual {
+            font-size: clamp(2rem, 8vw, 3.5rem);
+            color: #00aa00;
+            font-weight: bold;
+            text-shadow: 2px 2px 3px rgba(0,0,0,0.3);
+            display: block;
+            line-height: 1.1;
+        }
+
+        .economia {
+            background-color: #ffff00;
+            color: #000;
+            font-weight: bold;
+            padding: 0.3125rem 0.625rem;
+            border-radius: 20px;
+            display: inline-block;
+            margin: 0.625rem 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            font-size: clamp(0.875rem, 2.5vw, 1rem);
+            max-width: 90%;
+            word-wrap: break-word;
+        }
+
+        .timer {
+            font-size: clamp(1.5rem, 6vw, 2.5rem);
+            color: white;
+            background: #ff0000;
+            padding: clamp(0.625rem, 3vw, 0.9375rem);
+            border-radius: 10px;
+            margin: 1.25rem auto;
+            animation: pulsar 1s infinite;
+            width: 100%;
+            max-width: 350px;
+        }
+
+        .timer[data-expired="true"] {
+            background: #990000 !important;
+            font-size: clamp(1.25rem, 5vw, 1.8rem);
+            letter-spacing: 1px;
+            animation: none;
+        }
+
+        .botao {
+            background: #00cc00;
+            color: white !important;
+            padding: clamp(0.9375rem, 5vw, 1.5625rem) clamp(1.25rem, 8vw, 3.75rem);
+            font-size: clamp(1.125rem, 5vw, 2rem);
+            border: max(2px, min(3px, 0.5vw)) solid #ffffff;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            margin: 1.25rem 0;
+            box-shadow: 0 8px 20px rgba(0,204,0,0.6);
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 1px;
+            width: 100%;
+            max-width: 400px;
+            word-wrap: break-word;
+        }
+
+        .botao:hover, .botao:active {
+            background: #00aa00;
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 12px 25px rgba(0,204,0,0.8);
+        }
+
+        .aviso-final {
+            color: #666; 
+            margin-top: 1.25rem; 
+            font-size: clamp(0.75rem, 2vw, 0.9rem);
+            line-height: 1.4;
+            word-wrap: break-word;
+        }
+
+        /* Suporte a dispositivos de toque */
+        @media (hover: none) {
+            .botao:active {
+                background: #00aa00;
+                transform: translateY(-3px) scale(1.05);
+            }
+        }
+
+        /* Animações */
+        @keyframes piscarVermelho {
+            0% { opacity: 1; }
+            100% { opacity: 0.7; }
+        }
+
+        @keyframes pulsar {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.03); }
+        }
+
+        @keyframes piscarBorda {
+            0% { border-color: #ff0000; }
+            100% { border-color: #ff6666; }
+        }
+
+        /* Media queries complementares */
+        @media (max-width: 600px) {
+            br {
+                display: none; /* Remove quebras de linha em telas pequenas */
+            }
+        }
+        
+        @media (max-width: 360px) {
+            .container {
+                padding: 0.625rem; /* Reduz ainda mais o padding */
+            }
+            
+            .texto-urgente {
+                margin: 0.9375rem 0;
+            }
+            
+            .timer {
+                margin: 0.9375rem auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⚠️ ATENÇÃO: <span style="color: #000">NÃO SAIA AGORA!</span></h1>
+        
+        <div class="texto-urgente">
+            <p>VOCÊ FOI <strong>SELECIONADA</strong> PARA RECEBER UM
+            <span class="destaque">MEGA DESCONTO RELÂMPAGO!</span></p>
+            
+            <p style="margin-bottom: 15px;">❗<strong class="ultima-chance">ESSA É SUA ÚLTIMA CHANCE</strong>❗</p>
+            <p>Se você fechar esta página você <span style="color: #ff0000">NUNCA MAIS</span> terá
+            esta oportunidade novamente!</p>
+        </div>
+        
+        <!-- Timer movido para cima -->
+        <div class="timer" id="timer">03:00</div>
+            
+        <!-- Área de preços reformulada -->
+        <div class="area-preco">
+            <p>⚠️ <strong>APENAS HOJE:</strong> 500 Moldes de E.V.A</p>
+            <span class="preco-antigo">De R$ 10,00</span>
+            <span class="preco-atual">Por R$ 7,99</span>
+            <div class="economia">ECONOMIA DE 27% (R$ 2,01)</div>
+        </div>
+
+        <p class="texto-urgente">Mais de <strong>74 pessoas</strong> compraram nos últimos minutos!<br>
+        <span style="color: #ff0000">NÃO PERCA ESSA!</span> Após o tempo zerar, essa página será excluída para sempre.</p>
+
+        <a href="https://pay.kirvano.com/c53fa975-a737-455d-8e23-97d0677ea07e" class="botao">ACEITAR OFERTA AGORA</a>
+
+        <p class="aviso-final">
+        ⚠️ Se você sair sem comprar, <strong>VAI SE ARREPENDER</strong> quando vir o preço original amanhã! Esta é sua <strong>ÚNICA CHANCE</strong> de garantir acesso vitalício por menos de R$ 10!</p>
+    </div>
+
+    <script>
+        let timeLeft = 179; // 3 minutos
+        const timer = document.getElementById('timer');
+    
+        function updateTimer() {
+            const minutes = Math.floor(timeLeft / 60);
+            let seconds = timeLeft % 60;
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+            
+            if(timeLeft > 0) {
+                timer.innerHTML = `${minutes}:${seconds}`;
+                timeLeft--;
+            } else {
+                // Mensagem no timer
+                timer.innerHTML = "⚠️ OFERTA EXPIRADA";
+                timer.setAttribute('data-expired', 'true');
+                
+                // Mensagem extra abaixo do timer
+                const aviso = document.createElement('p');
+                aviso.innerHTML = '<strong style="color: #ff0000; font-size: 1.2em;">Essa é sua última chance, clique no botão abaixo e finalize sua compra!</strong>';
+                aviso.style.margin = '15px 0';
+                aviso.style.animation = 'piscarVermelho 0.8s infinite alternate';
+                timer.parentNode.insertBefore(aviso, timer.nextSibling);
+                
+                clearInterval(intervalID);
+            }
+        }
+    
+        const intervalID = setInterval(updateTimer, 1000);
+    </script>
+</body>
+</html>
