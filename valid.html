@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comunidade VIP Artesãs de EVA - Oferta Exclusiva!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ff6b8e;
+            --secondary: #a65cff;
+            --accent: #ffd700;
+            --light: #fff5f8;
+            --dark: #333333;
+            --success: #27ae60;
+            --warning: #ff7636;
+            --danger: #e74c3c;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        /* Notificação de Compra */
+        .purchase-notification {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background-color: #f1ffee;
+            border-left: 4px solid var(--success);
+            border-radius: 4px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            padding: 10px 12px;
+            display: flex;
+            align-items: center;
+            max-width: 280px;
+            z-index: 9999;
+            transform: translateY(150px);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .purchase-notification.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .notification-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: var(--success);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 13px;
+            margin-right: 10px;
+            flex-shrink: 0;
+        }
+        
+        .notification-content {
+            flex-grow: 1;
+        }
+        
+        .notification-content p {
+            margin: 0;
+            font-size: 12px;
+            line-height: 1.3;
+            color: #444;
+        }
+        
+        .notification-content .name {
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .notification-content .time {
+            font-size: 10px;
+            color: #777;
+            margin-top: 2px;
+        }
+        
+        .notification-close {
+            background: none;
+            border: none;
+            color: #999;
+            cursor: pointer;
+            font-size: 14px;
+            padding: 3px;
+            margin-left: 5px;
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header fixo */
+        .sticky-header {
+            position: sticky;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--danger);
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .sticky-header h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 24px;
+            margin: 0;
+        }
+        
+        /* Headline principal */
+        .main-headline {
+            text-align: center;
+            padding: 30px 15px;
+            background-color: white;
+            border-radius: 0 0 15px 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+        
+        .main-headline h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 32px;
+            line-height: 1.4;
+            margin-bottom: 15px;
+        }
+        
+        .highlight-yellow {
+            background-color: var(--accent);
+            color: var(--dark);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 800;
+        }
+        
+        .highlight-pink {
+            background-color: var(--primary);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 800;
+        }
+        
+        .highlight-green {
+            background-color: var(--success);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 800;
+        }
+        
+        /* Imagem do produto */
+        .product-image {
+            text-align: center;
+            margin: 20px 0 40px;
+        }
+        
+        .product-image img {
+            max-width: 80%;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border: 5px solid white;
+        }
+        
+        /* Seção de benefícios */
+        .benefits-section {
+            background: linear-gradient(135deg, #fff9fc 0%, #fff5fb 100%);
+            border-radius: 20px;
+            padding: 35px 25px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(255, 107, 142, 0.12);
+            border: 2px solid #ffe3eb;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .benefits-section:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 4px 4px 0 0;
+        }
+        
+        .benefits-section h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 30px;
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--primary);
+            text-shadow: 1px 1px 0px rgba(255, 255, 255, 1);
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .benefits-section h2:after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 3px;
+        }
+        
+        .benefits-list {
+            list-style-type: none;
+            max-width: 90%;
+            margin: 0 auto;
+        }
+        
+        .benefits-list li {
+            margin-bottom: 20px;
+            padding: 15px 15px 15px 60px;
+            position: relative;
+            font-size: 17px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--success);
+            color: #444;
+            font-weight: 600;
+        }
+        
+        .benefits-list li:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+        }
+        
+        .benefits-list li:before {
+            content: "";
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 32px;
+            height: 32px;
+            background-color: var(--success);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(39, 174, 96, 0.25);
+        }
+        
+        .benefits-list li:after {
+            content: "✓";
+            position: absolute;
+            left: 23px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 18px;
+            color: white;
+            font-weight: bold;
+        }
+        
+        /* Seção de preço */
+        .price-section {
+            background-color: var(--light);
+            border-radius: 15px;
+            padding: 30px 20px;
+            margin-bottom: 30px;
+            text-align: center;
+            border: 2px dashed var(--primary);
+            position: relative;
+        }
+        
+        .price-section:before {
+            content: "Oferta especial";
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--primary);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .price-tag {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        
+        .old-price {
+            text-decoration: line-through;
+            color: #888;
+            font-size: 22px;
+            margin-right: 10px;
+        }
+        
+        .new-price {
+            font-size: 42px;
+            font-weight: 800;
+            color: var(--success);
+        }
+        
+        .installments {
+            font-size: 18px;
+            color: var(--dark);
+            display: block;
+            margin-top: 5px;
+        }
+        
+        .one-time {
+            font-size: 16px;
+            background-color: #f8f8f8;
+            display: inline-block;
+            padding: 8px 15px;
+            border-radius: 20px;
+            margin-top: 15px;
+            color: var(--dark);
+        }
+        
+        .one-time svg {
+            vertical-align: middle;
+            margin-right: 5px;
+        }
+        
+        /* Botão CTA */
+        .cta-button {
+            display: block;
+            width: 100%;
+            max-width: 500px;
+            margin: 25px auto;
+            padding: 20px;
+            background-color: var(--success);
+            color: white;
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 18px;
+            text-decoration: none;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(39, 174, 96, 0.4);
+        }
+        
+        .cta-button:hover {
+            background-color: #219a52;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(39, 174, 96, 0.5);
+        }
+        
+        /* Urgência */
+        .urgency-banner {
+            background-color: #fff5e6;
+            border: 2px solid var(--warning);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 30px 0;
+            text-align: center;
+            position: relative;
+        }
+        
+        .urgency-banner p {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .urgency-banner svg {
+            font-size: 24px;
+            color: var(--warning);
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+        
+        /* FAQ Section */
+        .faq-section {
+            background-color: white;
+            border-radius: 15px;
+            padding: 30px 20px;
+            margin: 40px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .faq-section h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        
+        .faq-item {
+            margin-bottom: 15px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .faq-question {
+            background-color: #f9f9f9;
+            padding: 15px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .faq-answer {
+            padding: 15px;
+            display: none;
+            border-top: 1px solid #eee;
+        }
+        
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+        
+        /* Footer urgency */
+        .footer-urgency {
+            background-color: var(--danger);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 10px;
+            margin: 30px 0;
+        }
+        
+        .footer-urgency p {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 18px;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+            color: #888;
+            font-size: 14px;
+        }
+        
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .main-headline h1 {
+                font-size: 24px;
+            }
+            
+            .benefits-section h2,
+            .price-tag {
+                font-size: 22px;
+            }
+            
+            .new-price {
+                font-size: 36px;
+            }
+            
+            .cta-button {
+                font-size: 16px;
+                padding: 15px;
+            }
+            
+            .product-image img {
+                max-width: 95%;
+            }
+        }
+        
+        /* Animações */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header fixo -->
+    <div class="sticky-header">
+        <div class="container">
+            <h2>🚨 SUA COMPRA AINDA NÃO ESTÁ COMPLETA!</h2>
+        </div>
+    </div>
+    
+    <!-- Main content -->
+    <div class="container">
+        <!-- Headline principal -->
+        <div class="main-headline">
+            <h1>OFERTA ÚNICA: Liberamos Seu Acesso à Comunidade <span class="highlight-yellow">EXCLUSIVA</span> Com Outras Artesãs Que Já Estão <span class="highlight-pink">LUCRANDO COM EVA</span> Todos os Dias! Todas estão fazendo <span class="highlight-green">+R$14.000 por MÊS</span></h1>
+        </div>
+        
+        <!-- Imagem do produto -->
+        <div class="product-image">
+            <img src="media/cc.png" alt="Comunidade VIP Artesãs de EVA" />
+        </div>
+        
+        <!-- Seção de benefícios -->
+        <div class="benefits-section">
+            <h2>🎁 VEJA TUDO QUE VOCÊ VAI RECEBER NA COMUNIDADE:</h2>
+            <ul class="benefits-list">
+                <li><strong>Moldes exclusivos</strong> toda semana (que não estão no Google!)</li>
+                <li><strong>Aulões secretos</strong> com técnicas de venda e montagem de kits que realmente vendem</li>
+                <li><strong>Calendário de postagens</strong> pronto para bombar no WhatsApp e Instagram</li>
+                <li><strong>Catálogo digital</strong> com mais de 150 produtos prontos para personalização e venda imediata</li>
+                <li><strong>Grupo VIP no WhatsApp</strong> com suporte diário das melhores artesãs do Brasil</li>
+                <li><strong>Planilhas automáticas</strong> para calcular o preço certinho de cada peça</li>
+                <li><strong>Lista exclusiva</strong> com mais de 50 fornecedores confiáveis com os melhores preços do mercado</li>
+                <li><strong>Lives mensais</strong> com histórias de sucesso de alunas que faturam entre R$3.000 e R$6.000 por mês</li>
+                <li><strong>Guia completo</strong> de divulgação e vendas pelo Instagram e Facebook para conseguir clientes sem sair de casa</li>
+                <li><strong>Desafios com premiação</strong> simbólica para te manter motivada</li>
+            </ul>
+        </div>
+        
+        <!-- Seção de preço -->
+        <div class="price-section">
+            <div class="price-tag">
+                <span class="old-price">De R$197,00</span>
+                <span class="new-price">R$47,00</span>
+                <span class="installments">ou <strong>6x de R$7,98</strong> no cartão</span>
+            </div>
+            
+            <a href="#" class="cta-button pulse">QUERO ENTRAR PARA A COMUNIDADE VIP AGORA!</a>
+            
+            <div class="one-time">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M8 0C3.6 0 0 3.6 0 8C0 12.4 3.6 16 8 16C12.4 16 16 12.4 16 8C16 3.6 12.4 0 8 0ZM8 14C4.7 14 2 11.3 2 8C2 4.7 4.7 2 8 2C11.3 2 14 4.7 14 8C14 11.3 11.3 14 8 14ZM11.5 4L6.5 9L4.5 7L3 8.5L6.5 12L13 5.5L11.5 4Z" fill="#27ae60"/>
+                </svg>
+                🔒 Sem mensalidade! Paga apenas uma vez e fica na comunidade para sempre.
+            </div>
+        </div>
+        
+        <!-- Urgência -->
+        <div class="urgency-banner">
+            <p>⚠️ Oferta exclusiva! Esta página só aparece uma vez. Após fechar, este valor promocional não estará mais disponível!</p>
+        </div>
+        
+        <!-- FAQ Section -->
+        <div class="faq-section">
+            <h2>🙋‍♀️ Perguntas Frequentes</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    Quando vou receber acesso à Comunidade VIP?
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Seu acesso será liberado imediatamente após a confirmação do pagamento! Você receberá um e-mail com todas as instruções para entrar no grupo exclusivo.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    Preciso ter experiência com artesanato para aproveitar a comunidade?
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Não! A comunidade é perfeita tanto para iniciantes quanto para artesãs experientes. Temos conteúdos que vão desde o básico até técnicas avançadas de EVA.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    E se eu não gostar da comunidade?
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Oferecemos garantia de 7 dias! Se você sentir que a comunidade não é para você, basta solicitar seu reembolso dentro deste período e devolveremos 100% do seu investimento.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    Posso vender os produtos que eu fizer com os moldes da comunidade?
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Sim, absolutamente! Todos os moldes e materiais são liberados para uso comercial. Você pode criar e vender quantos produtos quiser usando nossos recursos.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    Essa oferta estará disponível depois?
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Não! Esta é uma oferta única que só aparece uma vez nesta página. Se você sair sem comprar, não conseguirá acessar este preço promocional novamente.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Segundo CTA -->
+        <a href="#" class="cta-button" style="background-color: #38b2ac;">GARANTIR MINHA VAGA AGORA</a>
+        
+        <!-- Footer urgência -->
+        <div class="footer-urgency">
+            <p>⚠️ ATENÇÃO: Esta página expira em breve! Aproveite agora esta oportunidade única de acesso à Comunidade VIP das Artesãs Lucrativas!</p>
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <p>&copy; 2025 Comunidade VIP Artesãs de EVA. Todos os direitos reservados.</p>
+        </div>
+    </div>
+    
+    <!-- Notificação de Compra Template -->
+    <div class="purchase-notification" id="notification-template" style="display: none;">
+        <div class="notification-avatar">✓</div>
+        <div class="notification-content">
+            <p><span class="name"></span> comprou</p>
+            <p class="time">agora mesmo</p>
+        </div>
+        <button class="notification-close">×</button>
+    </div>
+
+    <script>
+        // FAQ Toggle
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const parent = question.parentElement;
+                parent.classList.toggle('active');
+                
+                // Change the + to - and vice versa
+                const span = question.querySelector('span');
+                span.textContent = parent.classList.contains('active') ? '-' : '+';
+            });
+        });
+        
+        // Countdown Timer (opcional)
+        function startTimer(duration, display) {
+            let timer = duration, minutes, seconds;
+            setInterval(function () {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+                
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+                
+                display.textContent = minutes + ":" + seconds;
+                
+                if (--timer < 0) {
+                    timer = 0;
+                }
+            }, 1000);
+        }
+        
+        // Lista de nomes femininos para notificações de compra
+        const femaleNames = [
+            "Ana Paula", "Juliana", "Mariana", "Fernanda", "Patrícia", 
+            "Bruna", "Tatiana", "Camila", "Luciana", "Renata", 
+            "Débora", "Cristina", "Vanessa", "Jéssica", "Carla",
+            "Amanda", "Márcia", "Aline", "Paula", "Beatriz",
+            "Gabriela", "Sueli", "Rosana", "Luiza", "Tânia",
+            "Denise", "Cláudia", "Lúcia", "Silvia", "Regina",
+            "Mônica", "Eliane", "Daniela", "Roberta", "Fabiana",
+            "Priscila", "Michele", "Letícia", "Carolina", "Isabela"
+        ];
+        
+        // Cidades brasileiras
+        const cities = [
+            "São Paulo", "Rio de Janeiro", "Belo Horizonte", "Recife", "Fortaleza",
+            "Salvador", "Curitiba", "Porto Alegre", "Manaus", "Brasília",
+            "Florianópolis", "Goiânia", "Natal", "Vitória", "Belém"
+        ];
+        
+        // Função para gerar um número aleatório entre min e max
+        function randomNumber(min, max) {
+            return Math.floor(Math.random() * (max - min + 1) + min);
+        }
+        
+        // Função para mostrar a notificação de compra
+        function showPurchaseNotification() {
+            // Clone o template da notificação
+            const template = document.getElementById('notification-template');
+            const notification = template.cloneNode(true);
+            notification.id = '';
+            notification.style.display = 'flex';
+            
+            // Gere uma compra aleatória
+            const nameIndex = randomNumber(0, femaleNames.length - 1);
+            const name = femaleNames[nameIndex];
+            const cityIndex = randomNumber(0, cities.length - 1);
+            const city = cities[cityIndex];
+            
+            // Configure a notificação
+            notification.querySelector('.notification-avatar').textContent = '✓';
+            notification.querySelector('.name').textContent = name + " de " + city;
+            
+            // Adicione a notificação ao corpo do documento
+            document.body.appendChild(notification);
+            
+            // Mostre a notificação com animação
+            setTimeout(() => {
+                notification.classList.add('show');
+            }, 100);
+            
+            // Configure o botão de fechar
+            notification.querySelector('.notification-close').addEventListener('click', () => {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    notification.remove();
+                }, 500);
+            });
+            
+            // Remova automaticamente após 5 segundos
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    notification.remove();
+                }, 500);
+            }, 5000);
+            
+            // Agende a próxima notificação
+            const nextDelay = randomNumber(15000, 45000); // Entre 15s e 45s
+            setTimeout(showPurchaseNotification, nextDelay);
+        }
+        
+        // Inicie as notificações após um pequeno atraso
+        setTimeout(showPurchaseNotification, 3000);
+    </script>
+</body>
+</html>
